@@ -1,9 +1,10 @@
 import { Component } from 'react';
 import shortid from 'shortid';
 import { toast, ToastContainer } from 'react-toastify';
-import { GlobalStyles } from 'GlobalStyles/GlobalStyles';
-import { ContactEditor } from 'components/ContactEditor';
 
+import { ContactEditor } from 'components/ContactEditor';
+import { SectionTitle } from 'components/Title';
+import { GlobalStyles } from 'GlobalStyles/GlobalStyles';
 export class App extends Component {
   state = {
     contacts: [
@@ -28,7 +29,7 @@ export class App extends Component {
     )
       ? toast.warn('Такой пользователь уже есть 🤪 ', {
           position: 'top-right',
-          autoClose: 5000,
+          autoClose: 4000,
           hideProgressBar: false,
           closeOnClick: true,
           pauseOnHover: true,
@@ -45,8 +46,9 @@ export class App extends Component {
 
     return (
       <>
-        <ContactEditor onSubmit={this.onAddContact} />
-
+        <SectionTitle title="Phonebook">
+          <ContactEditor onSubmit={this.onAddContact} />
+        </SectionTitle>
         <GlobalStyles />
         <ToastContainer />
       </>
