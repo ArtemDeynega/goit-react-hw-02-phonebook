@@ -1,10 +1,18 @@
 import PropTypes from 'prop-types';
-import { Input, ListItem, Button, Item } from '.';
+import { InputLabel, InputFilter, ListItem, Button, Item } from '.';
 
-export const ContactList = ({ contacts, onDelete }) => {
+export const ContactList = ({ contacts, onDelete, value, onChangeFiter }) => {
   return (
     <>
-      <Input type="text" />
+      <InputLabel>
+        Find contacts by name
+        <InputFilter
+          type="text"
+          value={value}
+          onChange={onChangeFiter}
+          placeholder="Enter name"
+        />
+      </InputLabel>
       <Item>
         {contacts.map(({ name, number, id }) => (
           <ListItem key={id}>
@@ -27,4 +35,7 @@ ContactList.propTypes = {
     })
   ),
   onDelete: PropTypes.func,
+  value: PropTypes.string.isRequired,
+
+  onChangeFiter: PropTypes.func,
 };

@@ -55,9 +55,24 @@ export class App extends Component {
       progress: undefined,
     });
   };
+  changeFilter = evt => {
+    const { value } = evt.target;
+    this.setState({ filter: value });
+  };
+
+  getVisibleContact = () => {
+    const { contacts, filter } = this.state;
+    const normalizeFilter = filter.toLowerCase();
+
+    return contacts.filter(({ name }) =>
+      name.toLowerCase().includes(normalizeFilter)
+    );
+  };
 
   render() {
-    const { name, number, contacts } = this.state;
+    const { filter } = this.state;
+
+    const visibleContact = this.getVisibleContact();
 
     return (
       <>
@@ -65,7 +80,12 @@ export class App extends Component {
           <ContactEditor onSubmit={this.onAddContact} />
         </SectionTitle>
         <SectionTitle title="Contacts">
-          <ContactList contacts={contacts} onDelete={this.onDeleteContact} />
+          <ContactList
+            contacts={visibleContact}
+            onDelete={this.onDeleteContact}
+            value={filter}
+            onChangeFiter={this.changeFilter}
+          />
         </SectionTitle>
         <GlobalStyles />
         <ToastContainer />
