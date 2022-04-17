@@ -1,9 +1,10 @@
 import { Component } from 'react';
 import shortid from 'shortid';
 import { toast, ToastContainer } from 'react-toastify';
-
-import { ContactEditor } from 'components/ContactEditor';
 import { SectionTitle } from 'components/Title';
+import { ContactEditor } from 'components/ContactEditor';
+import { ContactList } from 'components/ContactList';
+
 import { GlobalStyles } from 'GlobalStyles/GlobalStyles';
 export class App extends Component {
   state = {
@@ -40,6 +41,20 @@ export class App extends Component {
           contacts: [newContact, ...contacts],
         }));
   };
+  onDeleteContact = contactId => {
+    this.setState(prevState => ({
+      contacts: prevState.contacts.filter(contact => contact.id !== contactId),
+    }));
+    toast.success('Контакт удален 👌', {
+      position: 'top-right',
+      autoClose: 1000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+    });
+  };
 
   render() {
     const { name, number, contacts } = this.state;
@@ -48,6 +63,9 @@ export class App extends Component {
       <>
         <SectionTitle title="Phonebook">
           <ContactEditor onSubmit={this.onAddContact} />
+        </SectionTitle>
+        <SectionTitle title="Contacts">
+          <ContactList contacts={contacts} onDelete={this.onDeleteContact} />
         </SectionTitle>
         <GlobalStyles />
         <ToastContainer />

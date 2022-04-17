@@ -37,7 +37,7 @@ export class ContactEditor extends Component {
             />
           </Label>
           <Label htmlFor={number}>
-            Number
+            Phone
             <Input
               type="tel"
               name="number"
@@ -49,7 +49,7 @@ export class ContactEditor extends Component {
               required
             />
           </Label>
-          <Button type="submit">Отправить</Button>
+          <Button type="submit">Add contact</Button>
         </Form>
       </>
     );
