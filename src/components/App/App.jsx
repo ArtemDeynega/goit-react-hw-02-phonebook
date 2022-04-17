@@ -1,6 +1,8 @@
 import { Component } from 'react';
+import shortid from 'shortid';
+import { toast, ToastContainer } from 'react-toastify';
 import { GlobalStyles } from 'GlobalStyles/GlobalStyles';
-// import { ContactEditor } from 'components/ContactEditor';
+import { ContactEditor } from 'components/ContactEditor';
 
 export class App extends Component {
   state = {
@@ -14,39 +16,39 @@ export class App extends Component {
     name: '',
     number: '',
   };
-
-  handleChange = evt => {
-    const { value } = evt.target;
-    this.setState({ name: value });
+  onAddContact = ({ name, number }) => {
+    const { contacts } = this.state;
+    const newContact = {
+      id: shortid.generate(),
+      name,
+      number,
+    };
+    contacts.find(
+      contact => newContact.name.toLowerCase() === contact.name.toLowerCase()
+    )
+      ? toast.warn('Такой пользователь уже есть 🤪 ', {
+          position: 'top-right',
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        })
+      : this.setState(({ contacts }) => ({
+          contacts: [newContact, ...contacts],
+        }));
   };
-  handleSubmit = evt => {
-    evt.preventDefault();
-    console.log(this.state.name);
 
-    this.props.onSubmit({ ...this.state });
-  };
   render() {
-    const { name, number } = this.state;
-    console.log('Это рендер: ', this.state);
+    const { name, number, contacts } = this.state;
 
     return (
       <>
-        <form action="" onSubmit={this.handleSubmit}>
-          <label>
-            Name
-            <input
-              type="text"
-              name="name"
-              value={name}
-              onChange={this.handleChange}
-              pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
-              title="Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan"
-              required
-            />
-          </label>
-          <button type="submit">Отправить</button>
-        </form>
+        <ContactEditor onSubmit={this.onAddContact} />
+
         <GlobalStyles />
+        <ToastContainer />
       </>
     );
   }
