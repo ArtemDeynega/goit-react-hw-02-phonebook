@@ -29,7 +29,7 @@ export class App extends Component {
       contact => newContact.name.toLowerCase() === contact.name.toLowerCase()
     )
       ? toast.warn('Такой пользователь уже есть 🤪 ', {
-          position: 'top-right',
+          position: 'top-center',
           autoClose: 4000,
           hideProgressBar: false,
           closeOnClick: true,
@@ -46,7 +46,7 @@ export class App extends Component {
       contacts: prevState.contacts.filter(contact => contact.id !== contactId),
     }));
     toast.success('Контакт удален 👌', {
-      position: 'top-right',
+      position: 'top-center',
       autoClose: 1000,
       hideProgressBar: false,
       closeOnClick: true,
