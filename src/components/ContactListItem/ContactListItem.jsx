@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
-import { Item, ListItem, Button } from './ContactButton.styled';
+import { Item, ListItem, Button } from './ContactListItem.styled';
 
-export const ContactButton = ({ contacts, onDelete }) => {
+export const ContactListItem = ({ contacts, onDelete }) => {
   return (
     <>
       <Item>
@@ -18,7 +18,7 @@ export const ContactButton = ({ contacts, onDelete }) => {
   );
 };
 
-ContactButton.propTypes = {
+ContactListItem.propTypes = {
   contacts: PropTypes.arrayOf(
     PropTypes.shape({
       name: PropTypes.string.isRequired,

@@ -4,7 +4,7 @@ import { toast, ToastContainer } from 'react-toastify';
 import { SectionTitle } from 'components/Title';
 import { ContactEditor } from 'components/ContactEditor';
 import { ContactList } from 'components/ContactList';
-import { ContactButton } from 'components/ContactButton';
+import { ContactListItem } from 'components/ContactListItem';
 
 import { GlobalStyles } from 'GlobalStyles/GlobalStyles';
 export class App extends Component {
@@ -82,7 +82,7 @@ export class App extends Component {
         </SectionTitle>
         <SectionTitle title="Contacts">
           <ContactList value={filter} onChangeFiter={this.changeFilter}>
-            <ContactButton
+            <ContactListItem
               contacts={visibleContact}
               onDelete={this.onDeleteContact}
             />
